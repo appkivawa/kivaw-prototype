@@ -1,32 +1,189 @@
-:root {
-  --bg: #E9EEFA;
-  --card: rgba(255,255,255,0.75);
-  --text: #2F3B66;
-  --primary: #5D70AE;
-  --shadow: 0 24px 60px rgba(15,23,42,0.12);
+:root{
+  --bg: #F6F7FB;
+  --card: rgba(255,255,255,.78);
+  --cardSolid: rgba(255,255,255,.92);
+  --text: #182247;
+  --muted: rgba(24,34,71,.68);
+  --border: rgba(24,34,71,.12);
+
+  --primary: #5D70AE;      /* your blue */
+  --primary2: #8EA2E6;     /* soft accent */
+  --ring: rgba(93,112,174,.28);
+
+  --shadow: 0 10px 30px rgba(24,34,71,.10);
+  --shadow2: 0 6px 18px rgba(24,34,71,.08);
+
+  --r-xl: 22px;
+  --r-lg: 16px;
+  --r-md: 14px;
+
+  --pad: 18px;
+
+  --t: 180ms;
 }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont;
-  background: var(--bg);
+/* --- Global reset-ish --- */
+*{ box-sizing: border-box; }
+html, body{ height:100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
   color: var(--text);
+  background: radial-gradient(900px 600px at 10% 5%, rgba(142,162,230,.25), transparent 60%),
+              radial-gradient(800px 500px at 90% 15%, rgba(93,112,174,.20), transparent 55%),
+              var(--bg);
 }
 
-.kivaw-wrap {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
+/* --- Premium phone frame --- */
+.kivaw-wrap{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding: 22px 14px;
 }
 
-.kivaw-phone {
-  width: 100%;
-  max-width: 420px;
-  background: var(--card);
+.kivaw-phone{
+  width: min(460px, 100%);
+  min-height: 720px;
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(255,255,255,.65);
   border-radius: 28px;
   box-shadow: var(--shadow);
-  padding: 24px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: var(--pad);
+  position: relative;
+  overflow: hidden;
 }
+
+/* subtle top glow */
+.kivaw-phone::before{
+  content:"";
+  position:absolute; inset:-2px -2px auto -2px;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(93,112,174,.18), transparent);
+  pointer-events:none;
+}
+
+/* --- Typography --- */
+.kivaw-h1{
+  text-align:center;
+  margin: 6px 0 0;
+  font-size: 40px;
+  letter-spacing: .06em;
+  color: var(--primary);
+}
+.kivaw-sub{
+  text-align:center;
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.kivaw-h2{
+  margin: 2px 0 6px;
+  font-size: 22px;
+}
+.kivaw-help{
+  margin: 0 0 14px;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+/* --- Buttons --- */
+.kbtn{
+  width:100%;
+  border-radius: var(--r-lg);
+  padding: 14px 14px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  text-align:left;
+  cursor:pointer;
+  transition: transform var(--t) ease, box-shadow var(--t) ease, background var(--t) ease, border-color var(--t) ease;
+}
+.kbtn:hover{
+  transform: translateY(-1px);
+  box-shadow: var(--shadow2);
+  border-color: rgba(24,34,71,.16);
+}
+.kbtn:active{
+  transform: translateY(0px) scale(.99);
+  box-shadow: none;
+}
+.kbtn-primary{
+  background: linear-gradient(135deg, var(--primary), #6F86D9);
+  border: none;
+  color: white;
+  font-weight: 800;
+  text-align:center;
+}
+.kbtn-primary:hover{ box-shadow: 0 12px 26px rgba(93,112,174,.22); }
+.kbtn-outline{
+  background: transparent;
+  border: 1px solid rgba(24,34,71,.18);
+  color: rgba(24,34,71,.86);
+  text-align:center;
+  font-weight: 800;
+}
+.kbtn-link{
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+  color: rgba(24,34,71,.75);
+  font-weight: 800;
+  cursor:pointer;
+}
+
+/* --- Cards & rows --- */
+.krow{
+  display:flex;
+  gap: 12px;
+  align-items:flex-start;
+}
+.kicon{
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(233,238,250,.92);
+  border: 1px solid rgba(24,34,71,.08);
+  flex-shrink:0;
+}
+.ktitle{ font-weight: 900; }
+.kdesc{
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.kcard{
+  padding: 16px;
+  border-radius: var(--r-xl);
+  background: var(--cardSolid);
+  border: 1px solid rgba(24,34,71,.10);
+  box-shadow: var(--shadow2);
+}
+
+/* --- Pills --- */
+.kpills{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 12px; }
+.kpill{
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(24,34,71,.12);
+  background: rgba(233,238,250,.88);
+  font-weight: 800;
+}
+
+/* --- Screen transition (subtle premium) --- */
+.kfade{
+  animation: kfadein 220ms ease both;
+}
+@keyframes kfadein{
+  from{ opacity:0; transform: translateY(6px); }
+  to{ opacity:1; transform: translateY(0px); }
+}
+
 

@@ -64,283 +64,139 @@ export default function App() {
       <div className="kivaw-phone">
         {/* HOME */}
         {screen === "home" && (
-          <>
-            <h1 style={{ textAlign: "center", margin: 0, fontSize: 38, color: "#5D70AE" }}>
-              KIVAW
-            </h1>
-            <p style={{ textAlign: "center", marginTop: 10, opacity: 0.7 }}>
-              Find what fits your mood.
-            </p>
+          <div className="kfade">
+            <h1 className="kivaw-h1">KIVAW</h1>
+            <p className="kivaw-sub">Find what fits your mood.</p>
 
             <button
+              className="kbtn kbtn-primary"
               onClick={() => setScreen("state")}
-              style={{
-                marginTop: 22,
-                width: "100%",
-                padding: 14,
-                borderRadius: 16,
-                background: "#5D70AE",
-                color: "white",
-                border: "none",
-                fontSize: 16,
-                fontWeight: 700,
-              }}
+              style={{ marginTop: 22 }}
             >
               Get Recommendations
             </button>
-          </>
+          </div>
         )}
 
         {/* STATE */}
         {screen === "state" && (
-          <>
-            <button
-              onClick={() => setScreen("home")}
-              style={{
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                marginBottom: 12,
-                color: "rgba(47,59,102,0.8)",
-                fontWeight: 700,
-              }}
-            >
+          <div className="kfade">
+            <button className="kbtn-link" onClick={() => setScreen("home")}>
               ← Back
             </button>
 
-            <h2 style={{ marginTop: 0, marginBottom: 6 }}>How are you feeling?</h2>
-            <p style={{ marginTop: 0, marginBottom: 16, opacity: 0.7 }}>
-              Choose the closest state.
-            </p>
+            <h2 className="kivaw-h2">What’s your current state?</h2>
+            <p className="kivaw-help">Choose the closest match.</p>
 
             {stateCards.map((s) => (
               <button
                 key={s.id}
+                className="kbtn"
                 onClick={() => {
                   setState(s.id);
                   setScreen("focus");
                 }}
-                style={{
-                  width: "100%",
-                  margin: "10px 0",
-                  padding: 14,
-                  borderRadius: 16,
-                  border: "1px solid rgba(0,0,0,0.12)",
-                  background: "rgba(255,255,255,0.78)",
-                  textAlign: "left",
-                }}
+                style={{ margin: "10px 0" }}
               >
-                <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <div
-                    style={{
-                      width: 34,
-                      height: 34,
-                      borderRadius: 12,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      background: "rgba(233,238,250,0.9)",
-                      border: "1px solid rgba(0,0,0,0.08)",
-                      fontSize: 18,
-                      flexShrink: 0,
-                    }}
-                  >
-                    {s.icon}
-                  </div>
+                <div className="krow">
+                  <div className="kicon">{s.icon}</div>
                   <div>
-                    <div style={{ fontWeight: 800 }}>{s.title}</div>
-                    <div style={{ marginTop: 4, fontSize: 12, opacity: 0.7 }}>{s.desc}</div>
+                    <div className="ktitle">{s.title}</div>
+                    <div className="kdesc">{s.desc}</div>
                   </div>
                 </div>
               </button>
             ))}
-          </>
+          </div>
         )}
 
         {/* FOCUS */}
         {screen === "focus" && (
-          <>
-            <button
-              onClick={() => setScreen("state")}
-              style={{
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                marginBottom: 12,
-                color: "rgba(47,59,102,0.8)",
-                fontWeight: 700,
-              }}
-            >
+          <div className="kfade">
+            <button className="kbtn-link" onClick={() => setScreen("state")}>
               ← Back
             </button>
 
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
-              <span
-                style={{
-                  fontSize: 12,
-                  padding: "6px 10px",
-                  borderRadius: 999,
-                  border: "1px solid rgba(0,0,0,0.12)",
-                  background: "rgba(233,238,250,0.85)",
-                  fontWeight: 700,
-                }}
-              >
-                State: {state}
-              </span>
+            <div className="kpills">
+              <span className="kpill">State: {state ?? "—"}</span>
             </div>
 
-            <h2 style={{ marginTop: 0, marginBottom: 6 }}>Choose your focus</h2>
-            <p style={{ marginTop: 0, marginBottom: 16, opacity: 0.7 }}>
-              Pick one focus. We’ll match recommendations to your state.
-            </p>
+            <h2 className="kivaw-h2">Choose your focus</h2>
+            <p className="kivaw-help">Pick one lens for now (we’ll expand later).</p>
 
             {focusCards.map((f) => (
               <button
                 key={f.id}
+                className="kbtn"
                 onClick={() => {
                   setFocus(f.id);
                   setScreen("result");
                 }}
-                style={{
-                  width: "100%",
-                  margin: "10px 0",
-                  padding: 14,
-                  borderRadius: 16,
-                  border: "1px solid rgba(0,0,0,0.12)",
-                  background: "rgba(255,255,255,0.78)",
-                  textAlign: "left",
-                }}
+                style={{ margin: "10px 0" }}
               >
-                <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <div
-                    style={{
-                      width: 34,
-                      height: 34,
-                      borderRadius: 12,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      background: "rgba(233,238,250,0.9)",
-                      border: "1px solid rgba(0,0,0,0.08)",
-                      fontSize: 18,
-                      flexShrink: 0,
-                    }}
-                  >
-                    {f.icon}
-                  </div>
+                <div className="krow">
+                  <div className="kicon">{f.icon}</div>
                   <div>
-                    <div style={{ fontWeight: 800 }}>{f.title}</div>
-                    <div style={{ marginTop: 4, fontSize: 12, opacity: 0.7 }}>{f.desc}</div>
+                    <div className="ktitle">{f.title}</div>
+                    <div className="kdesc">{f.desc}</div>
                   </div>
                 </div>
               </button>
             ))}
-          </>
+          </div>
         )}
 
         {/* RESULT */}
         {screen === "result" && (
-          <>
-            <button
-              onClick={() => setScreen("focus")}
-              style={{
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                marginBottom: 12,
-                color: "rgba(47,59,102,0.8)",
-                fontWeight: 700,
-              }}
-            >
+          <div className="kfade">
+            <button className="kbtn-link" onClick={() => setScreen("focus")}>
               ← Back
             </button>
 
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
-              <span
-                style={{
-                  fontSize: 12,
-                  padding: "6px 10px",
-                  borderRadius: 999,
-                  border: "1px solid rgba(0,0,0,0.12)",
-                  background: "rgba(233,238,250,0.85)",
-                  fontWeight: 700,
-                }}
-              >
-                State: {state}
-              </span>
-              <span
-                style={{
-                  fontSize: 12,
-                  padding: "6px 10px",
-                  borderRadius: 999,
-                  border: "1px solid rgba(0,0,0,0.12)",
-                  background: "rgba(233,238,250,0.85)",
-                  fontWeight: 700,
-                }}
-              >
-                Focus: {focus}
-              </span>
+            <div className="kpills">
+              <span className="kpill">State: {state ?? "—"}</span>
+              <span className="kpill">Focus: {focus ?? "—"}</span>
             </div>
 
-            <h2 style={{ marginTop: 0, marginBottom: 8 }}>Your Match</h2>
-
-            <p style={{ opacity: 0.75, marginTop: 0, marginBottom: 18 }}>
-              You’re in a <b>{state}</b> state, focused on <b>{focus}</b>.
+            <h2 className="kivaw-h2">Your Match</h2>
+            <p className="kivaw-help">
+              You’re in a <b>{state ?? "—"}</b> state, focused on <b>{focus ?? "—"}</b>.
             </p>
 
-            <div
-              style={{
-                padding: 16,
-                borderRadius: 16,
-                background: "rgba(255,255,255,0.9)",
-                border: "1px solid rgba(0,0,0,0.08)",
-                marginBottom: 18,
-              }}
-            >
+            <div className="kcard" style={{ marginBottom: 18 }}>
               <strong>Recommendation</strong>
-              <p style={{ marginTop: 6, fontSize: 14, opacity: 0.8 }}>
+              <p
+                style={{
+                  marginTop: 8,
+                  fontSize: 14,
+                  color: "rgba(24,34,71,.78)",
+                  lineHeight: 1.55,
+                  marginBottom: 0,
+                }}
+              >
                 {state && focus ? recommendations[state][focus] : "—"}
               </p>
             </div>
 
             <button
+              className="kbtn kbtn-primary"
               onClick={() => setScreen("focus")}
-              style={{
-                width: "100%",
-                padding: 14,
-                borderRadius: 14,
-                background: "#5D70AE",
-                color: "white",
-                border: "none",
-                fontSize: 15,
-                fontWeight: 800,
-                marginBottom: 10,
-              }}
+              style={{ marginBottom: 10 }}
             >
               Change Focus
             </button>
 
             <button
+              className="kbtn kbtn-outline"
               onClick={() => {
                 setState(null);
                 setFocus(null);
                 setScreen("home");
               }}
-              style={{
-                width: "100%",
-                padding: 12,
-                borderRadius: 14,
-                background: "transparent",
-                border: "1px solid rgba(0,0,0,0.15)",
-                color: "#2F3B66",
-                fontSize: 14,
-                opacity: 0.85,
-                fontWeight: 800,
-              }}
             >
               ← Home
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>

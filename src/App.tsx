@@ -137,9 +137,13 @@ export default function App() {
                 src="/favicon.svg"
                 alt="Kivaw"
                 style={{
-                  width: 60,
-                  marginBottom: 16,
-                  opacity: 0.85,
+                  width: 78,
+                  marginBottom: 20,
+                  marginTop: 6,
+                  display: "block",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  opacity: 0.9,
                 }}
               />
 
@@ -186,4 +190,3 @@ export default function App() {
     </div>
   );
 }
-

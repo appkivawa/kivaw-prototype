@@ -7,52 +7,36 @@ const recommendations: Record<State, Record<Focus, string>> = {
   minimizer: {
     logic: "Clear, structured content that reduces noise and helps you think efficiently.",
     music: "Minimal or instrumental tracks that support calm focus.",
-    art: "Clean visuals with soft contrast—simple, intentional, uncluttered.",
-    faith: "Quiet reflection that grounds you without overwhelming you.",
-    movement: "Slow, intentional movement—stretching, walking, gentle flow.",
-    beauty: "Neutral palettes, clean lines, subtle elegance—nothing loud.",
+    art: "Clean visuals with soft contrast and space.",
+    faith: "Quiet reflection and grounding presence.",
+    movement: "Slow, intentional movement like walking or stretching.",
+    beauty: "Neutral tones and subtle elegance.",
   },
   expansivist: {
-    logic: "Big-picture ideas, frameworks, and curiosity-driven learning.",
-    music: "Atmospheric or energizing sounds that spark momentum and imagination.",
-    art: "Bold visuals, expressive color, and creative exploration.",
-    faith: "Purpose-centered reflection that expands your perspective.",
-    movement: "Dynamic motion—dance, active flow, anything that feels alive.",
-    beauty: "Expressive styling and aesthetics—playful, radiant, expansive.",
+    logic: "Big-picture ideas and mental exploration.",
+    music: "Energetic or atmospheric sound.",
+    art: "Bold colors and expressive visuals.",
+    faith: "Purpose-driven reflection.",
+    movement: "Dynamic movement or dance.",
+    beauty: "Expressive, radiant aesthetics.",
   },
   destructivist: {
-    logic: "Breakdown + rebuild: content that challenges assumptions and clears the old structure.",
-    music: "Cathartic or intense soundscapes—release, reset, exhale.",
-    art: "Abstract, disruptive visuals—raw expression and transformation energy.",
-    faith: "Honest wrestling with meaning—finding truth through tension.",
-    movement: "High-energy release—strength, sweat, shake it out.",
-    beauty: "Unconventional beauty—raw, edgy, unapologetic.",
+    logic: "Breaking old patterns and mental resets.",
+    music: "Cathartic or intense sound.",
+    art: "Raw or abstract visuals.",
+    faith: "Deep reflection and release.",
+    movement: "Strong physical release.",
+    beauty: "Unconventional, striking beauty.",
   },
   blank: {
-    logic: "Light mental stimulation with zero pressure—gentle clarity.",
-    music: "Soft ambient or easy-listening—something neutral and comforting.",
-    art: "Open-ended visuals—so your mind can wander safely.",
-    faith: "A quiet nudge toward peace—no demands, just presence.",
-    movement: "Gentle motion or rest—whatever your body can do today.",
-    beauty: "Simple calm aesthetics—clean, soft, steady.",
+    logic: "Gentle mental clarity.",
+    music: "Soft ambient sounds.",
+    art: "Open-ended, calming visuals.",
+    faith: "Quiet grounding.",
+    movement: "Light motion or rest.",
+    beauty: "Clean and simple design.",
   },
 };
-
-const stateCards: Array<{ id: State; title: string; desc: string; icon: string }> = [
-  { id: "minimizer", title: "Minimizer", desc: "calm • low stimulation • clarity", icon: "🧩" },
-  { id: "destructivist", title: "Destructivist", desc: "release • intensity • reset", icon: "🔥" },
-  { id: "expansivist", title: "Expansivist", desc: "curious • open • explore", icon: "🌱" },
-  { id: "blank", title: "Blank", desc: "undecided • just nudge me", icon: "🌫️" },
-];
-
-const focusCards: Array<{ id: Focus; title: string; desc: string; icon: string }> = [
-  { id: "music", title: "Music", desc: "songs, playlists, sound moods", icon: "🎵" },
-  { id: "logic", title: "Logic", desc: "clarity, structure, frameworks", icon: "🧠" },
-  { id: "art", title: "Art", desc: "visuals, creative inspiration", icon: "🎨" },
-  { id: "faith", title: "Faith", desc: "meaning, comfort, reflection", icon: "🕊️" },
-  { id: "movement", title: "Movement", desc: "energy, motion, activation", icon: "🏃" },
-  { id: "beauty", title: "Beauty", desc: "aesthetic calm, harmony, style", icon: "💄" },
-];
 
 export default function App() {
   const [screen, setScreen] = useState<"home" | "state" | "focus" | "result">("home");
@@ -62,6 +46,7 @@ export default function App() {
   return (
     <div className="kivaw-wrap">
       <div className="kivaw-phone">
+
         {/* HOME */}
         {screen === "home" && (
           <div className="kfade">
@@ -71,7 +56,7 @@ export default function App() {
             <button
               className="kbtn kbtn-primary"
               onClick={() => setScreen("state")}
-              style={{ marginTop: 22 }}
+              style={{ marginTop: 24 }}
             >
               Get Recommendations
             </button>
@@ -86,25 +71,24 @@ export default function App() {
             </button>
 
             <h2 className="kivaw-h2">What’s your current state?</h2>
-            <p className="kivaw-help">Choose the closest match.</p>
+            <p className="kivaw-help">Choose what feels closest.</p>
 
-            {stateCards.map((s) => (
+            {Object.entries({
+              minimizer: "🧩 Minimizer",
+              destructivist: "🔥 Destructivist",
+              expansivist: "🌱 Expansivist",
+              blank: "🌫️ Blank",
+            }).map(([key, label]) => (
               <button
-                key={s.id}
+                key={key}
                 className="kbtn"
                 onClick={() => {
-                  setState(s.id);
+                  setState(key as State);
                   setScreen("focus");
                 }}
                 style={{ margin: "10px 0" }}
               >
-                <div className="krow">
-                  <div className="kicon">{s.icon}</div>
-                  <div>
-                    <div className="ktitle">{s.title}</div>
-                    <div className="kdesc">{s.desc}</div>
-                  </div>
-                </div>
+                {label}
               </button>
             ))}
           </div>
@@ -117,32 +101,23 @@ export default function App() {
               ← Back
             </button>
 
-            <div className="kpills">
-              <span className="kpill">State: {state ?? "—"}</span>
-            </div>
+            <h2 className="kivaw-h2">Choose a focus</h2>
 
-            <h2 className="kivaw-h2">Choose your focus</h2>
-            <p className="kivaw-help">Pick one lens for now (we’ll expand later).</p>
-
-            {focusCards.map((f) => (
-              <button
-                key={f.id}
-                className="kbtn"
-                onClick={() => {
-                  setFocus(f.id);
-                  setScreen("result");
-                }}
-                style={{ margin: "10px 0" }}
-              >
-                <div className="krow">
-                  <div className="kicon">{f.icon}</div>
-                  <div>
-                    <div className="ktitle">{f.title}</div>
-                    <div className="kdesc">{f.desc}</div>
-                  </div>
-                </div>
-              </button>
-            ))}
+            {(["music", "logic", "art", "faith", "movement", "beauty"] as Focus[]).map(
+              (f) => (
+                <button
+                  key={f}
+                  className="kbtn"
+                  onClick={() => {
+                    setFocus(f);
+                    setScreen("result");
+                  }}
+                  style={{ margin: "10px 0" }}
+                >
+                  {f.charAt(0).toUpperCase() + f.slice(1)}
+                </button>
+              )
+            )}
           </div>
         )}
 
@@ -153,37 +128,19 @@ export default function App() {
               ← Back
             </button>
 
-            <div className="kpills">
-              <span className="kpill">State: {state ?? "—"}</span>
-              <span className="kpill">Focus: {focus ?? "—"}</span>
-            </div>
-
-            <h2 className="kivaw-h2">Your Match</h2>
-            <p className="kivaw-help">
-              You’re in a <b>{state ?? "—"}</b> state, focused on <b>{focus ?? "—"}</b>.
-            </p>
-
-            <div className="kcard" style={{ marginBottom: 18 }}>
-              <strong>Recommendation</strong>
-              <p
-                style={{
-                  marginTop: 8,
-                  fontSize: 14,
-                  color: "rgba(24,34,71,.78)",
-                  lineHeight: 1.55,
-                  marginBottom: 0,
-                }}
-              >
-                {state && focus ? recommendations[state][focus] : "—"}
+            <div className="kcard">
+              <strong>Your Match</strong>
+              <p style={{ marginTop: 10 }}>
+                {state && focus && recommendations[state][focus]}
               </p>
             </div>
 
             <button
               className="kbtn kbtn-primary"
               onClick={() => setScreen("focus")}
-              style={{ marginBottom: 10 }}
+              style={{ marginTop: 20 }}
             >
-              Change Focus
+              Try Another Focus
             </button>
 
             <button
@@ -193,6 +150,7 @@ export default function App() {
                 setFocus(null);
                 setScreen("home");
               }}
+              style={{ marginTop: 10 }}
             >
               ← Home
             </button>
